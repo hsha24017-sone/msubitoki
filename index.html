@@ -1,0 +1,41 @@
+height="24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="currentColor"/></svg></button>
+                <h2>オンライン交換</h2>
+                <div></div>
+            </div>
+            
+            <div class="trade-container">
+                <div class="trade-user-panel">
+                    <h3>あなたの手札</h3>
+                    <div class="trade-list" id="my-trade-list"></div>
+                </div>
+                <div class="trade-user-panel">
+                    <h3>友達（オンライン）の手札</h3>
+                    <div class="trade-list" id="friend-trade-list"></div>
+                </div>
+            </div>
+            <div class="trade-actions">
+                <button id="btn-execute-trade" class="primary-btn" disabled>選択したカードを交換する</button>
+            </div>
+        </section>
+
+        <!-- カード出現ポップアップモーダル -->
+        <div id="card-modal" class="modal">
+            <div class="modal-content">
+                <div class="tc-card" id="drawn-card-element">
+                    <div class="tc-card-inner">
+                        <div class="tc-badge" id="modal-card-badge">新規!</div>
+                        <h2 class="tc-title" id="modal-card-title">朝の結びカード</h2>
+                        <div class="tc-divider"></div>
+                        <p class="tc-text" id="modal-card-text">今日の空気はちょっと味方してくれそう。深呼吸をひとつして、お出かけしてみては？</p>
+                        <div class="tc-footer" id="modal-card-date">結び日時: 2026-05-27</div>
+                    </div>
+                </div>
+                <button id="btn-close-modal" class="primary-btn">アルバムに結ぶ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- オーディオ要素（効果音の代わりとなるWeb Audio APIをJSで使用するため、タグは最小限または未使用） -->
+    <script src="script.js"></script>
+</body>
+</html>

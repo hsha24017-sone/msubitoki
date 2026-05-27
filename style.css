@@ -1,0 +1,41 @@
+.trade-user-panel h3 {
+    font-size: 11px;
+    padding: 10px;
+    background-color: #f5f2ee;
+    color: #6b645b;
+    border-bottom: 1px solid #eae6e1;
+}
+
+.trade-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.trade-item {
+    padding: 8px;
+    border: 1px solid #eae6e1;
+    border-radius: 4px;
+    font-size: 11px;
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.trade-item.selected {
+    background-color: #f5eceb;
+    border-color: #b84c3d;
+    color: #b84c3d;
+    font-weight: bold;
+}
+
+.trade-actions {
+    padding: 16px;
+    border-top: 1px solid #eae6e1;
+    background-color: #fafaf8;
+    display: flex;
+    justify-content: center;
+}
