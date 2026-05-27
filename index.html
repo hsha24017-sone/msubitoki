@@ -1,4 +1,35 @@
-height="24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="currentColor"/></svg></button>
+        <section id="collection-screen" class="screen">
+            <div class="screen-header">
+                <button class="btn-back"><svg viewBox="0 0 24 24" width="24" height="24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="currentColor"/></svg></button>
+                <h2>アルバム</h2>
+                <div class="points-badge"><span id="display-points">0</span> pt</div>
+            </div>
+            
+            <div class="collection-actions">
+                <button id="btn-recycle-all" class="secondary-btn">ダブリを一括リサイクル (+10pt/枚)</button>
+                <button id="btn-draw-premium" class="premium-btn">極レア箱を引く (10pt消費)</button>
+            </div>
+
+            <div class="collection-container">
+                <div class="series-section">
+                    <h3 class="series-title">日常シリーズ</h3>
+                    <div class="card-grid" id="grid-daily">
+                        <!-- 動的に生成 -->
+                    </div>
+                </div>
+                <div class="series-section">
+                    <h3 class="series-title">祝日・特別シリーズ</h3>
+                    <div class="card-grid" id="grid-special">
+                        <!-- 動的に生成 -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- オンライン交換画面 -->
+        <section id="trade-screen" class="screen">
+            <div class="screen-header">
+                <button class="btn-back"><svg viewBox="0 0 24 24" width="24" height="24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="currentColor"/></svg></button>
                 <h2>オンライン交換</h2>
                 <div></div>
             </div>

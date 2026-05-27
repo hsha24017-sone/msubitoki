@@ -1,3 +1,452 @@
+   /* 全体の和モダン・ミニマルスタイル */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    background-color: #f3f0ec; /* 落ち着いた和の生成り色 */
+    color: #333333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+#app-container {
+    width: 100%;
+    max-width: 412px; /* スマホサイズ固定 */
+    height: 100vh;
+    max-height: 892px;
+    background-color: #fafaf8;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 画面切り替え管理 */
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    transform: scale(0.98);
+    display: flex;
+    flex-direction: column;
+    background-color: #fafaf8;
+}
+
+.screen.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+    z-index: 10;
+}
+
+/* ヘッダー共通 */
+.top-bar, .screen-header {
+    height: 64px;
+    padding: 0 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eae6e1;
+    background-color: #fafaf8;
+    z-index: 11;
+}
+
+.app-title-mini {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: #4a4641;
+}
+
+.screen-header h2 {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+}
+
+.menu-icon-btn, .btn-back {
+    background: none;
+    border: none;
+    color: #6b645b;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.menu-icon-btn:hover, .btn-back:hover {
+    background-color: #f0ede9;
+}
+
+/* メイン画面: 紐引きエリア */
+.himo-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background: radial-gradient(circle at center, #ffffff 0%, #fafaf8 100%);
+}
+
+.himo-rope-container {
+    width: 60px;
+    height: 350px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#himo-rope {
+    width: 4px;
+    height: 200px;
+    background: repeating-linear-gradient(
+        45deg,
+        #b84c3d,
+        #b84c3d 6px,
+        #e6c9a8 6px,
+        #e6c9a8 12px
+    ); /* 紅白・和風の飾り紐をイメージ */
+    box-shadow: 1px 2px 5px rgba(0,0,0,0.15);
+    transition: height 0.1s ease-out;
+    transform-origin: top center;
+}
+
+#himo-handle {
+    width: 28px;
+    height: 50px;
+    background-color: #4a3933; /* 木製の持ち手 */
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    cursor: grab;
+    position: absolute;
+    top: 200px;
+    transition: top 0.1s ease-out;
+}
+
+#himo-handle:active {
+    cursor: grabbing;
+}
+
+.himo-instruction {
+    margin-top: 40px;
+    font-size: 13px;
+    color: #8c847a;
+    letter-spacing: 0.1em;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+/* コレクション画面 */
+.points-badge {
+    background-color: #eae6e1;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4a4641;
+}
+
+.collection-actions {
+    padding: 12px 16px;
+    display: flex;
+    gap: 8px;
+    background-color: #f5f2ee;
+}
+
+.collection-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+}
+
+.series-section {
+    margin-bottom: 24px;
+}
+
+.series-title {
+    font-size: 13px;
+    color: #8c847a;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+    border-left: 3px solid #6b645b;
+    padding-left: 8px;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+/* アルバム内のミニカードプレビュー */
+.mini-card {
+    aspect-ratio: 1 / 1.4;
+    background-color: #ffffff;
+    border: 1px solid #eae6e1;
+    border-radius: 6px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    transition: transform 0.2s;
+}
+
+.mini-card:hover {
+    transform: translateY(-2px);
+}
+
+.mini-card.locked {
+    background-color: #eceae6;
+    background-image: radial-gradient(#dfdbd6 1px, transparent 1px);
+    background-size: 8px 8px;
+    border: 1px dashed #cfcac4;
+    justify-content: center;
+    align-items: center;
+}
+
+.mini-card.locked .mini-title {
+    color: #b0aaa2;
+    font-size: 10px;
+    text-align: center;
+}
+
+.mini-title {
+    font-size: 10px;
+    font-weight: 600;
+    color: #4a4641;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.mini-count {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background-color: #b84c3d;
+    color: white;
+    font-size: 9px;
+    font-weight: bold;
+    min-width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 4px;
+    box-shadow: 0 2px 4px rgba(184,76,61,0.3);
+}
+
+/* トレーディングカード（TCG）風ポップアップ/詳細表示 */
+.tc-card {
+    width: 260px;
+    aspect-ratio: 1 / 1.5;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    border: 1px solid #dfdcd8;
+    position: relative;
+    overflow: hidden;
+}
+
+.tc-card-inner {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #cfcac4;
+    border-radius: 8px;
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.tc-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 9px;
+    background-color: #b84c3d;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+}
+
+.tc-badge.dup {
+    background-color: #7a7268;
+}
+
+.tc-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #2c2925;
+    margin-top: 16px;
+    letter-spacing: 0.05em;
+    text-align: center;
+}
+
+.tc-divider {
+    width: 30px;
+    height: 1px;
+    background-color: #b84c3d;
+    margin: 16px 0;
+}
+
+.tc-text {
+    font-size: 11px;
+    line-height: 1.6;
+    color: #4a4641;
+    text-align: justify;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.tc-footer {
+    font-size: 9px;
+    color: #a69f96;
+    margin-top: 8px;
+}
+
+/* ボタン各種 */
+button {
+    font-family: inherit;
+    transition: all 0.2s;
+}
+
+.primary-btn, .secondary-btn, .premium-btn {
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.primary-btn {
+    background-color: #4a433b;
+    color: #ffffff;
+    padding: 12px 24px;
+    letter-spacing: 0.1em;
+}
+
+.primary-btn:hover {
+    background-color: #38322c;
+}
+
+.primary-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.secondary-btn {
+    background-color: #ffffff;
+    color: #5a5249;
+    border: 1px solid #d3ce text-align center;
+    padding: 8px 12px;
+    flex: 1;
+}
+
+.premium-btn {
+    background-color: #b84c3d;
+    color: #ffffff;
+    padding: 8px 12px;
+    flex: 1;
+    box-shadow: 0 2px 6px rgba(184,76,61,0.2);
+}
+
+.premium-btn:hover {
+    background-color: #9c3f32;
+}
+
+/* モーダル表示 */
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(42, 39, 36, 0.4);
+    backdrop-filter: blur(2px);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.modal.active .modal-content {
+    transform: translateY(0);
+}
+
+/* オンライン交換画面 */
+.trade-container {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+}
+
+.trade-user-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #eae6e1;
+    background-color: #ffffff;
+}
+
+.trade-user-panel:last-child {
+    border-right: none;
+    background-color: #fcfbfa;
+}
+
 .trade-user-panel h3 {
     font-size: 11px;
     padding: 10px;
@@ -38,4 +487,4 @@
     background-color: #fafaf8;
     display: flex;
     justify-content: center;
-}
+}    
