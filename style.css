@@ -1,4 +1,4 @@
-   /* 全体の和モダン・ミニマルスタイル */
+/* 全体の和モダン・ミニマルスタイル */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -487,4 +487,4 @@ button {
     background-color: #fafaf8;
     display: flex;
     justify-content: center;
-}    
+}
